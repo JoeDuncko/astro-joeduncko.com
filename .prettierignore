@@ -1,2 +1,6 @@
 # .prettierignore
 .gitignore
+.*
+package.json
+package-lock.json
+tsconfig.json
