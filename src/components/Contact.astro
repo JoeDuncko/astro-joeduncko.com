@@ -1,0 +1,19 @@
+---
+import { DataCard } from "./DataCard";
+import { ExternalLink } from "./ExternalLink";
+
+const { class: className, ...rest } = Astro.props;
+---
+
+<DataCard className={className} title="Contact">
+    <ul>
+        <li>
+            <ExternalLink
+                href={`mailto:personal@joeduncko.com`}
+                title={`Email Joe Duncko`}
+            >
+                <FontAwesomeIcon icon={faEnvelope} /> Email
+            </ExternalLink>
+        </li>
+    </ul>
+</DataCard>
