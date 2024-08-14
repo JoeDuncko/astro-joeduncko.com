@@ -1,8 +1,13 @@
 ---
 import BaseHead from "../components/BaseHead.astro";
+import Communities from "../components/Communities.astro";
+import Education from "../components/Education.astro";
 import Experiences from "../components/Experiences.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
+import OpenSourceContributions from "../components/OpenSourceContributions.astro";
+import Projects from "../components/Projects.astro";
+import Socials from "../components/Socials.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 import { socials } from "../pages/api/socials";
 ---
@@ -60,15 +65,15 @@ import { socials } from "../pages/api/socials";
                     <div class="flex-1">
                         <Experiences />
                     </div>
-                    <!-- <div class="flex-1">
+                    <div class="flex-1">
                         <Education />
                         <Communities />
                         <OpenSourceContributions />
                         <Projects />
-                        <Interests />
-                        <Socials class="print:hidden" />
-                        <Contact class="print:hidden" />
-                    </div> -->
+                        <!-- <Interests /> -->
+                        <Socials className="print:hidden" />
+                        <!-- <Contact className="print:hidden" /> -->
+                    </div>
                 </div>
             </div>
         </main>

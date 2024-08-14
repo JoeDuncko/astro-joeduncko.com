@@ -1,0 +1,35 @@
+---
+import { type Social, socials } from "../pages/api/socials";
+import DataCard from "./DataCard.astro";
+import ExternalLink from "./ExternalLink.astro";
+
+interface Props {
+    className?: string;
+}
+
+const { className } = Astro.props;
+---
+
+<DataCard className={className} title="Socials">
+    <ul>
+        {
+            socials.map((social: Social) => (
+                <li class="mb-2">
+                    <ExternalLink
+                        href={social.link}
+                        title={`To Joe Duncko's ${social.name}`}
+                    >
+                        <svg
+                            width="32"
+                            height="32"
+                            fill="currentColor"
+                            viewBox="0 0 16 16"
+                        >
+                            <path d={social.pathD} />
+                        </svg>
+                    </ExternalLink>
+                </li>
+            ))
+        }
+    </ul>
+</DataCard>

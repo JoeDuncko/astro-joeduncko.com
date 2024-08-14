@@ -1,0 +1,32 @@
+---
+import { projects } from "../pages/api/projects";
+import DataCard from "./DataCard.astro";
+import ExternalLink from "./ExternalLink.astro";
+
+interface Project {
+    name: string;
+    link: string;
+    description: string;
+}
+---
+
+<DataCard title="Select Projects">
+    <ul>
+        {
+            projects.map((project: Project) => (
+                <li class="mb-2">
+                    <ExternalLink
+                        href={project.link}
+                        title={`To ${project.name}`}
+                    >
+                        <h4 class="inline">{project.name}</h4>
+                    </ExternalLink>
+                    , {project.description}
+                    <div class="hidden print:block">
+                        <i>{project.link}</i>
+                    </div>
+                </li>
+            ))
+        }
+    </ul>
+</DataCard>

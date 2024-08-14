@@ -1,0 +1,33 @@
+---
+import { openSourceContributions } from "../pages/api/openSourceContributions";
+import DataCard from "./DataCard.astro";
+import ExternalLink from "./ExternalLink.astro";
+
+interface OpenSourceContribution {
+    name: string;
+    link: string;
+    position: string;
+    description: string;
+}
+---
+
+<DataCard title="Open Source">
+    <ul>
+        {
+            openSourceContributions.map(
+                (openSourceContribution: OpenSourceContribution) => (
+                    <li class="mb-2">
+                        <ExternalLink
+                            href={openSourceContribution.link}
+                            title={`To ${openSourceContribution.name}`}
+                        >
+                            {openSourceContribution.name}
+                        </ExternalLink>{" "}
+                        ({openSourceContribution.position}):{" "}
+                        {openSourceContribution.description}
+                    </li>
+                )
+            )
+        }
+    </ul>
+</DataCard>

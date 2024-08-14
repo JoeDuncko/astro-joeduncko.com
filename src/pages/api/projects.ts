@@ -4,7 +4,7 @@ type Project = {
     description: string;
 };
 
-const projects: Project[] = [
+export const projects: Project[] = [
     {
         name: "Evitt",
         link: "https://evitt.io/",
