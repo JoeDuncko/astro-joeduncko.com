@@ -1,11 +1,10 @@
 ---
 export interface ExternalLinkProps {
-    children: any;
     href: string;
     title: string;
 }
 
-const { children, href, title } = Astro.props as ExternalLinkProps;
+const { href, title } = Astro.props as ExternalLinkProps;
 ---
 
 <a
@@ -14,7 +13,7 @@ const { children, href, title } = Astro.props as ExternalLinkProps;
     target="_blank"
     class="relative hover:text-[#ff9300]"
 >
-    {children}
+    <slot />
     <svg
         class="relative print:hidden hover:text-[#ff9300]"
         style={{
@@ -22,6 +21,8 @@ const { children, href, title } = Astro.props as ExternalLinkProps;
             top: "-1em",
             fontSize: "0.5em",
         }}
+        width="8"
+        height="8"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 512 512"
         ><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->

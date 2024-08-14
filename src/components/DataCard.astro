@@ -3,14 +3,13 @@ import classNames from "classnames";
 
 interface Props {
     title: string;
-    children: any;
     className?: string;
 }
 
-const { title, children, className } = Astro.props;
+const { title, className } = Astro.props;
 ---
 
 <section class={classNames("mb-5", className)}>
     <h3 class="text-3xl mb-3">{title}</h3>
-    {children}
+    <slot />
 </section>
