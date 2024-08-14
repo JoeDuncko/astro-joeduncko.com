@@ -3,6 +3,7 @@ import BaseHead from "../components/BaseHead.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+import { socials } from "../pages/api/socials";
 ---
 
 <!doctype html>
@@ -31,17 +32,24 @@ import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
                             }
                             <a href="https://joeduncko.com/">JoeDuncko.com</a>
                         </div>
-                        <!-- <div class="text-right">
+                        <div class="text-right">
                             {
                                 socials.map((social, i, array) => (
-                                    <a href={social.link} key={social.name}>
-                                        <FontAwesomeIcon icon={social.icon} />{" "}
+                                    <a href={social.link}>
+                                        <svg
+                                            width="18"
+                                            height="18"
+                                            fill="currentColor"
+                                            viewBox="0 0 16 16"
+                                        >
+                                            <path d={social.pathD} />
+                                        </svg>{" "}
                                         {social.printFriendlyLabel}
                                         {i !== array.length - 1 && " | "}
                                     </a>
                                 ))
                             }
-                        </div> -->
+                        </div>
                     </div>
                 </div>
 
