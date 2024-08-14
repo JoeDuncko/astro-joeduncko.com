@@ -1,0 +1,66 @@
+---
+import classNames from "classnames";
+import { format } from "date-fns";
+import { type Experience } from "../pages/api/experiences";
+import ExternalLink from "./ExternalLink.astro";
+
+interface Props {
+    experience: Experience;
+}
+
+const { experience } = Astro.props;
+
+const { title, description, company, startDate, endDate, hideWhenPrinting } =
+    experience;
+---
+
+<li class={classNames("mb-2", hideWhenPrinting && "print:hidden")}>
+    <div class="flex mb-1 gap-4">
+        <div class="flex-grow">
+            <h4>
+                <b>{title}</b> @<br />
+                {
+                    company.link ? (
+                        <ExternalLink
+                            href={company.link}
+                            title={`To ${company.name}`}
+                        >
+                            {company.name}
+                        </ExternalLink>
+                    ) : (
+                        company.name
+                    )
+                }
+            </h4>
+        </div>
+
+        <div class="text-right text-sm text-gray-500">
+            <span class="block">{company.location}</span>
+
+            <span class="block">
+                {
+                    /* Inline-block helps not break between years and months on mobile, see
+                    https://stackoverflow.com/questions/18222409/specifying-a-preferred-line-break-point-in-html-text-in-a-responsive-design */
+                }
+                <time datetime={startDate.toISOString()} class="inline-block">
+                    {format(startDate, "MMM y")}
+                </time>{" "}
+                -{" "}
+                {
+                    endDate ? (
+                        <time
+                            datetime={endDate.toISOString()}
+                            class="inline-block"
+                        >
+                            {format(endDate, "MMM y")}
+                        </time>
+                    ) : (
+                        "Present"
+                    )
+                }
+            </span>
+        </div>
+    </div>
+
+    <p>{description}</p>
+</li>

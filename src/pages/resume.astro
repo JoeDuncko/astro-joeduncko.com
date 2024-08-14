@@ -1,5 +1,6 @@
 ---
 import BaseHead from "../components/BaseHead.astro";
+import Experiences from "../components/Experiences.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
@@ -56,10 +57,10 @@ import { socials } from "../pages/api/socials";
                 <div
                     class="flex flex-col md:flex-row print:flex-row md:gap-8 print:gap-8"
                 >
-                    <!-- <div class="flex-1">
+                    <div class="flex-1">
                         <Experiences />
                     </div>
-                    <div class="flex-1">
+                    <!-- <div class="flex-1">
                         <Education />
                         <Communities />
                         <OpenSourceContributions />

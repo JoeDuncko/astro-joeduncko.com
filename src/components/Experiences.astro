@@ -1,0 +1,15 @@
+---
+import { experiences } from "../pages/api/experiences";
+import DataCard from "./DataCard.astro";
+import Experience from "./Experience.astro";
+---
+
+<DataCard title="Experience">
+    <ol>
+        {
+            experiences.map((experience) => (
+                <Experience experience={experience} />
+            ))
+        }
+    </ol>
+</DataCard>
