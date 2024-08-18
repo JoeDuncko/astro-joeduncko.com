@@ -1,57 +1,84 @@
 ---
+import { CATCH_PHASE, MY_NAME } from "../consts";
 import { socials } from "../pages/api/socials";
 
 const today = new Date();
 ---
 
-<footer>
-    &copy; {today.getFullYear()} Joe Duncko. All rights reserved.
-    <div class="social-links">
-        {
-            socials.map((social) => (
-                <a href={social.link} target="_blank">
-                    <span class="sr-only">To Joe's {social.name}</span>
-                    <svg
-                        width="32"
-                        height="32"
-                        fill="currentColor"
-                        viewBox="0 0 16 16"
-                    >
-                        <path d={social.pathD} />
-                    </svg>
-                </a>
-            ))
-        }
+<footer class="max-w-screen-lg sm:flex text-xs print:hidden items-center">
+    <div class="text-center sm:text-left flex-1">
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 512 512"
+            height="1em"
+            width="1em"
+            ><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+            <path
+                d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM199.4 312.6c-31.2-31.2-31.2-81.9 0-113.1s81.9-31.2 113.1 0c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9c-50-50-131-50-181 0s-50 131 0 181s131 50 181 0c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0c-31.2 31.2-81.9 31.2-113.1 0z"
+            ></path></svg
+        >
+        {MY_NAME}{" "}
+        {today.getFullYear()}
+    </div>
 
-        <a href="mailto:personal@JoeDuncko.com" target="_blank">
-            <span class="sr-only">Email Joe</span>
-            <svg width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
+    <div class="text-center flex-1">
+        <a
+            href="https://github.com/JoeDuncko/joeduncko.com"
+            class="m-1 hover:text-[#ff9300]"
+            target="_blank"
+            rel="noreferrer"
+            title="Fork this site on GitHub"
+        >
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 448 512"
+                height="1em"
+                width="1em"
+                ><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
                 <path
-                    d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z"
-                ></path>
-            </svg>
+                    d="M80 104a24 24 0 1 0 0-48 24 24 0 1 0 0 48zm80-24c0 32.8-19.7 61-48 73.3l0 87.8c18.8-10.9 40.7-17.1 64-17.1l96 0c35.3 0 64-28.7 64-64l0-6.7C307.7 141 288 112.8 288 80c0-44.2 35.8-80 80-80s80 35.8 80 80c0 32.8-19.7 61-48 73.3l0 6.7c0 70.7-57.3 128-128 128l-96 0c-35.3 0-64 28.7-64 64l0 6.7c28.3 12.3 48 40.5 48 73.3c0 44.2-35.8 80-80 80s-80-35.8-80-80c0-32.8 19.7-61 48-73.3l0-6.7 0-198.7C19.7 141 0 112.8 0 80C0 35.8 35.8 0 80 0s80 35.8 80 80zm232 0a24 24 0 1 0 -48 0 24 24 0 1 0 48 0zM80 456a24 24 0 1 0 0-48 24 24 0 1 0 0 48z"
+                ></path></svg
+            >
         </a>
+        <button class="m-1 hover:text-[#ff9300]" title="Print this page">
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 512 512"
+                height="1em"
+                width="1em"
+                ><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                <path
+                    d="M128 0C92.7 0 64 28.7 64 64l0 96 64 0 0-96 226.7 0L384 93.3l0 66.7 64 0 0-66.7c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0L128 0zM384 352l0 32 0 64-256 0 0-64 0-16 0-16 256 0zm64 32l32 0c17.7 0 32-14.3 32-32l0-96c0-35.3-28.7-64-64-64L64 192c-35.3 0-64 28.7-64 64l0 96c0 17.7 14.3 32 32 32l32 0 0 64c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-64zM432 248a24 24 0 1 1 0 48 24 24 0 1 1 0-48z"
+                ></path></svg
+            >
+        </button>
+        <a
+            href="https://simpleanalytics.com/joeduncko.com?utm_source=joeduncko.com"
+            class="m-1 hover:text-[#ff9300]"
+            target="_blank"
+            rel="noreferrer"
+            title="View analytics on Simple Analytics"
+        >
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 512 512"
+                height="1em"
+                width="1em"
+                ><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                <path
+                    d="M64 64c0-17.7-14.3-32-32-32S0 46.3 0 64L0 400c0 44.2 35.8 80 80 80l400 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L80 416c-8.8 0-16-7.2-16-16L64 64zm406.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L320 210.7l-57.4-57.4c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L240 221.3l57.4 57.4c12.5 12.5 32.8 12.5 45.3 0l128-128z"
+                ></path></svg
+            >
+        </a>
+    </div>
+
+    <div class="text-right flex-1">
+        <em>{CATCH_PHASE}</em>
     </div>
 </footer>
 
-<style>
-    footer {
-        padding: 2em 1em 6em 1em;
-        background: linear-gradient(var(--gray-gradient)) no-repeat;
-        color: rgb(var(--gray));
-        text-align: center;
-    }
-    .social-links {
-        display: flex;
-        justify-content: center;
-        gap: 1em;
-        margin-top: 1em;
-    }
-    .social-links a {
-        text-decoration: none;
-        color: rgb(var(--gray));
-    }
-    .social-links a:hover {
-        color: rgb(var(--gray-dark));
-    }
-</style>
+<script>
+    const print = () => {
+        window.print();
+    };
+</script>
