@@ -1,90 +1,13 @@
 ---
-import { SITE_TITLE } from "../consts";
-import { socials } from "../pages/api/socials";
 import HeaderLink from "./HeaderLink.astro";
 ---
 
-<header>
-    <nav>
-        <h2><a href="/">{SITE_TITLE}</a></h2>
-        <div class="internal-links">
+<header class="flex flex-col items-center mb-4 print:hidden">
+    <nav class="mb-8">
+        <ul class="flex flex-row items-end text-center gap-8">
             <HeaderLink href="/">Home</HeaderLink>
             <HeaderLink href="/resume">Resume</HeaderLink>
             <HeaderLink href="/blog">Blog</HeaderLink>
-        </div>
-
-        <div class="social-links">
-            {
-                socials.map((social) => (
-                    <a href={social.link} target="_blank">
-                        <span class="sr-only">To Joe's {social.name}</span>
-                        <svg
-                            width="32"
-                            height="32"
-                            fill="currentColor"
-                            viewBox="0 0 16 16"
-                        >
-                            <path d={social.pathD} />
-                        </svg>
-                    </a>
-                ))
-            }
-
-            <a href="mailto:personal@JoeDuncko.com" target="_blank">
-                <span class="sr-only">Email Joe</span>
-                <svg
-                    width="32"
-                    height="32"
-                    fill="currentColor"
-                    viewBox="0 0 16 16"
-                >
-                    <path
-                        d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z"
-                    ></path>
-                </svg>
-            </a>
-        </div>
+        </ul>
     </nav>
 </header>
-
-<style>
-    header {
-        margin: 0;
-        padding: 0 1em;
-        background: white;
-        box-shadow: 0 2px 8px rgba(var(--black), 5%);
-    }
-    h2 {
-        margin: 0;
-        font-size: 1em;
-    }
-
-    h2 a,
-    h2 a.active {
-        text-decoration: none;
-    }
-    nav {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-    nav a {
-        padding: 1em 0.5em;
-        color: var(--black);
-        border-bottom: 4px solid transparent;
-        text-decoration: none;
-    }
-    nav a.active {
-        text-decoration: none;
-        border-bottom-color: var(--accent);
-    }
-    .social-links,
-    .social-links a {
-        display: flex;
-    }
-    @media (max-width: 720px) {
-        .social-links {
-            display: none;
-        }
-    }
-</style>
