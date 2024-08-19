@@ -15,72 +15,71 @@ import { socials } from "./api/socials";
         <Header />
 
         <main class="flex flex-col items-center mb-4 flex-grow">
-            <img
-                class="rounded-full"
-                src="/images/JoeDuncko2019Square.jpg"
-                height={144}
-                width={144}
-                alt={"Joe Duncko"}
-            />
+            <div class="flex flex-col items-center mb-4">
+                <img
+                    class="rounded-full"
+                    src="/images/JoeDuncko2019Square.jpg"
+                    height={144}
+                    width={144}
+                    alt={"Joe Duncko"}
+                />
 
-            <h1 class="text-4xl">Joe Duncko</h1>
+                <h1 class="text-4xl">Joe Duncko</h1>
 
-            <section class="flex flex-col items-center text-center">
-                <p class="max-w-sm">{SITE_DESCRIPTION}</p>
-            </section>
+                <div class="flex flex-col items-center text-center">
+                    <p class="max-w-sm">{SITE_DESCRIPTION}</p>
+                </div>
+            </div>
 
-            <div class="flex flex-col flex-grow">
-                <section class="flex-grow">
-                    <ul
-                        class="flex flex-row items-center text-center gap-8 justify-center text-4xl mb-4"
-                    >
-                        {
-                            socials.map((social) => (
-                                <li>
-                                    <a
-                                        href={social.link}
-                                        class="hover:text-[#ff9300]"
-                                        target="_blank"
-                                    >
-                                        <span class="sr-only">
-                                            To Joe's {social.name}
-                                        </span>
-                                        <svg
-                                            width="32"
-                                            height="32"
-                                            fill="currentColor"
-                                            viewBox="0 0 16 16"
-                                        >
-                                            <path d={social.pathD} />
-                                        </svg>
-                                    </a>
-                                </li>
-                            ))
-                        }
+            <ul
+                class="flex flex-row items-center text-center gap-8 justify-center text-4xl mb-4"
+            >
+                {
+                    socials.map((social) => (
                         <li>
                             <a
-                                href="mailto:personal@JoeDuncko.com"
-                                target="_blank"
-                                title={"Email Joe Duncko"}
+                                href={social.link}
                                 class="hover:text-[#ff9300]"
+                                target="_blank"
                             >
-                                <span class="sr-only">Email Joe</span>
+                                <span class="sr-only">
+                                    To Joe's {social.name}
+                                </span>
                                 <svg
                                     width="32"
                                     height="32"
                                     fill="currentColor"
                                     viewBox="0 0 16 16"
                                 >
-                                    <path
-                                        d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z"
-                                    ></path>
+                                    <path d={social.pathD} />
                                 </svg>
                             </a>
                         </li>
-                    </ul>
-                </section>
+                    ))
+                }
+                <li>
+                    <a
+                        href="mailto:personal@JoeDuncko.com"
+                        target="_blank"
+                        title={"Email Joe Duncko"}
+                        class="hover:text-[#ff9300]"
+                    >
+                        <span class="sr-only">Email Joe</span>
+                        <svg
+                            width="32"
+                            height="32"
+                            fill="currentColor"
+                            viewBox="0 0 16 16"
+                        >
+                            <path
+                                d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z"
+                            ></path>
+                        </svg>
+                    </a>
+                </li>
+            </ul>
 
-                <!-- <section class="mb-8">
+            <!-- <section class="mb-8">
                     <br />
 
                     <h2 class="mb-2 text-2xl">Blog</h2>
@@ -93,7 +92,6 @@ import { socials } from "./api/socials";
                         }
                     </div>
                 </section> -->
-            </div>
         </main>
 
         <Footer />
