@@ -5,8 +5,10 @@ import { socials } from "../pages/api/socials";
 const today = new Date();
 ---
 
-<footer class="max-w-screen-lg sm:flex text-xs print:hidden items-center">
-    <div class="text-center sm:text-left flex-1">
+<footer
+    class="max-w-screen-lg flex text-xs print:hidden items-center justify-between"
+>
+    <div class="flex flex-1 flex-row items-center gap-1">
         <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 512 512"
@@ -21,7 +23,7 @@ const today = new Date();
         {today.getFullYear()}
     </div>
 
-    <div class="text-center flex-1">
+    <div class="flex flex-1 flex-row items-center justify-center gap-1">
         <a
             href="https://github.com/JoeDuncko/joeduncko.com"
             class="m-1 hover:text-[#ff9300]"
@@ -72,7 +74,7 @@ const today = new Date();
         </a>
     </div>
 
-    <div class="text-right flex-1">
+    <div class="flex flex-1 justify-end">
         <em>{CATCH_PHASE}</em>
     </div>
 </footer>
