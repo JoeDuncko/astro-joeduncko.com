@@ -13,7 +13,9 @@ const { href, title } = Astro.props as ExternalLinkProps;
     target="_blank"
     class="relative hover:fill-[#ff9300] inline-flex gap-1"
 >
-    <slot />
+    <div class="flex items-center gap-1">
+        <slot />
+    </div>
     <svg
         class="relative print:hidden"
         style={{
