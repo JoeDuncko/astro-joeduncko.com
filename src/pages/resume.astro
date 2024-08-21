@@ -28,12 +28,13 @@ import { socials } from "../pages/api/socials";
             {/* Wrapper that sets print width for whole resume */}
             <div class="print:min-w-[960px]">
                 {/* TODO: move this to its own component */}
-                <div class="mb-4 hidden justify-between print:flex text-sm">
+                <div class="mb-4 justify-between flex text-sm">
                     <div>
                         <h1 class="text-4xl">Joe Duncko</h1>
                     </div>
-                    <div>
-                        <div class="text-right">
+
+                    <div class="flex flex-col items-end">
+                        <div>
                             <a href="mailto:personal@JoeDuncko.com"
                                 >personal@JoeDuncko.com</a
                             >{" "}
@@ -42,13 +43,17 @@ import { socials } from "../pages/api/socials";
                             }
                             <a href="https://joeduncko.com/">JoeDuncko.com</a>
                         </div>
-                        <div class="text-right">
+
+                        <div class="flex gap-2">
                             {
                                 socials.map((social, i, array) => (
-                                    <a href={social.link}>
+                                    <a
+                                        href={social.link}
+                                        class="flex gap-1 items-center"
+                                    >
                                         <svg
-                                            width="18"
-                                            height="18"
+                                            width="1em"
+                                            height="1em"
                                             fill="currentColor"
                                             viewBox="0 0 16 16"
                                         >
