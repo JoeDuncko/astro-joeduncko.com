@@ -19,14 +19,17 @@ const { className } = Astro.props;
                         href={social.link}
                         title={`To Joe Duncko's ${social.name}`}
                     >
-                        <svg
-                            width="32"
-                            height="32"
-                            fill="currentColor"
-                            viewBox="0 0 16 16"
-                        >
-                            <path d={social.pathD} />
-                        </svg>
+                        <div class="flex items-center gap-1">
+                            <svg
+                                width="1em"
+                                height="1em"
+                                fill="currentColor"
+                                viewBox="0 0 16 16"
+                            >
+                                <path d={social.pathD} />
+                            </svg>{" "}
+                            {social.name}
+                        </div>
                     </ExternalLink>
                 </li>
             ))
