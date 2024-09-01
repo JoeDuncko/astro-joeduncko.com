@@ -14,7 +14,7 @@ function customHeadingContent(node) {
 
 // https://astro.build/config
 export default defineConfig({
-    site: "https://example.com",
+    site: "https://joeduncko.com",
     integrations: [mdx(), sitemap(), tailwind()],
     markdown: {
         rehypePlugins: [
