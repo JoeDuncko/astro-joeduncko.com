@@ -1,6 +1,5 @@
 ---
 import { CATCH_PHASE, MY_NAME } from "../consts";
-import { socials } from "../pages/api/socials";
 
 const today = new Date();
 ---
@@ -42,7 +41,11 @@ const today = new Date();
                 ></path></svg
             >
         </a>
-        <button class="m-1 hover:text-[#ff9300]" title="Print this page">
+        <button
+            class="m-1 hover:text-[#ff9300]"
+            title="Print this page"
+            id="print-button"
+        >
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 512 512"
@@ -80,7 +83,9 @@ const today = new Date();
 </footer>
 
 <script>
-    const print = () => {
+    const printButton = document.querySelector("#print-button");
+
+    printButton?.addEventListener("click", () => {
         window.print();
-    };
+    });
 </script>
