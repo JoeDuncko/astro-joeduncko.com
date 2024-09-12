@@ -1,101 +1,87 @@
 ---
 import { getCollection } from "astro:content";
-import BaseHead from "../components/BaseHead.astro";
-import Footer from "../components/Footer.astro";
-import Header from "../components/Header.astro";
 import HomePostCard from "../components/HomePostCard.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 import { socials } from "./api/socials";
+import Layout from "../layouts/Layout.astro";
 
 const posts = (await getCollection("blog")).sort(
-    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 ---
 
-<!doctype html>
-<html lang="en">
-    <head>
-        <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-    </head>
-    <body class="max-w-screen-lg m-auto p-4 pb-1 min-h-screen flex flex-col">
-        <Header />
+<Layout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+    <div class="flex flex-col items-center mb-4 flex-grow">
+        <div class="flex flex-col items-center mb-4">
+            <img
+                class="rounded-full"
+                src="/images/JoeDuncko2019Square.jpg"
+                height={144}
+                width={144}
+                alt={"Joe Duncko"}
+            />
 
-        <main class="flex flex-col items-center mb-4 flex-grow">
-            <div class="flex flex-col items-center mb-4">
-                <img
-                    class="rounded-full"
-                    src="/images/JoeDuncko2019Square.jpg"
-                    height={144}
-                    width={144}
-                    alt={"Joe Duncko"}
-                />
+            <h1 class="text-4xl">Joe Duncko</h1>
 
-                <h1 class="text-4xl">Joe Duncko</h1>
-
-                <div class="flex flex-col items-center text-center">
-                    <p class="max-w-sm">{SITE_DESCRIPTION}</p>
-                </div>
+            <div class="flex flex-col items-center text-center">
+                <p class="max-w-sm">{SITE_DESCRIPTION}</p>
             </div>
+        </div>
 
-            <ul
-                class="flex flex-row items-center text-center gap-8 justify-center text-4xl mb-4"
-            >
-                {
-                    socials.map((social) => (
-                        <li>
-                            <a
-                                href={social.link}
-                                class="hover:text-[#ff9300]"
-                                target="_blank"
-                            >
-                                <span class="sr-only">
-                                    To Joe's {social.name}
-                                </span>
-                                <svg
-                                    width="32"
-                                    height="32"
-                                    fill="currentColor"
-                                    viewBox="0 0 16 16"
-                                >
-                                    <path d={social.pathD} />
-                                </svg>
-                            </a>
-                        </li>
-                    ))
-                }
-                <li>
-                    <a
-                        href="mailto:personal@JoeDuncko.com"
-                        target="_blank"
-                        title={"Email Joe Duncko"}
-                        class="hover:text-[#ff9300]"
-                    >
-                        <span class="sr-only">Email Joe</span>
-                        <svg
-                            width="32"
-                            height="32"
-                            fill="currentColor"
-                            viewBox="0 0 16 16"
+        <ul
+            class="flex flex-row items-center text-center gap-8 justify-center text-4xl mb-4"
+        >
+            {
+                socials.map((social) => (
+                    <li>
+                        <a
+                            href={social.link}
+                            class="hover:text-[#ff9300]"
+                            target="_blank"
                         >
-                            <path
-                                d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z"
-                            ></path>
-                        </svg>
-                    </a>
-                </li>
-            </ul>
+                            <span class="sr-only">To Joe's {social.name}</span>
+                            <svg
+                                width="32"
+                                height="32"
+                                fill="currentColor"
+                                viewBox="0 0 16 16"
+                            >
+                                <path d={social.pathD} />
+                            </svg>
+                        </a>
+                    </li>
+                ))
+            }
+            <li>
+                <a
+                    href="mailto:personal@JoeDuncko.com"
+                    target="_blank"
+                    title={"Email Joe Duncko"}
+                    class="hover:text-[#ff9300]"
+                >
+                    <span class="sr-only">Email Joe</span>
+                    <svg
+                        width="32"
+                        height="32"
+                        fill="currentColor"
+                        viewBox="0 0 16 16"
+                    >
+                        <path
+                            d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z"
+                        ></path>
+                    </svg>
+                </a>
+            </li>
+        </ul>
 
-            <section class="mb-8 max-w-full">
-                <br />
+        <section class="mb-8 max-w-full">
+            <br />
 
-                <h2 class="mb-2 text-2xl">Blog</h2>
+            <h2 class="mb-2 text-2xl">Blog</h2>
 
-                <div class="flex flex-nowrap overflow-scroll gap-4">
-                    {posts.map((post) => <HomePostCard {...post} />)}
-                </div>
-            </section>
-        </main>
-
-        <Footer />
-    </body>
-</html>
+            <div class="flex flex-nowrap overflow-scroll gap-4">
+                {posts.map((post) => <HomePostCard {...post} />)}
+            </div>
+        </section>
+    </div>
+</Layout>
