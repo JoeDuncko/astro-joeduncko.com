@@ -13,24 +13,26 @@ const post = Astro.props;
     title={`${post.data.title} | Joe Duncko's Blog`}
     description={post.data.description}
 >
-    <div class="text-4xl mb-4">Joe Duncko's Blog</div>
+    <div class="max-w-3xl w-full mx-auto">
+        <div class="text-4xl mb-4">Joe Duncko's Blog</div>
 
-    <article class="max-w-3xl w-full mx-auto">
-        <div class="mb-2">
-            <h1 class="text-5xl">
-                <a
-                    href={`/blog/${post.slug}/`}
-                    class="hover:underline"
-                    style={{ color: "#ff9300" }}
-                >
-                    #
-                </a>{" "}
-                {post.data.title}
-            </h1>
-            <FormattedDate date={post.data.pubDate} />
-        </div>
-        <div class={markdownStyles["markdown"]}>
-            <slot />
-        </div>
-    </article>
+        <article>
+            <div class="mb-2">
+                <h1 class="text-5xl">
+                    <a
+                        href={`/blog/${post.slug}/`}
+                        class="hover:underline"
+                        style={{ color: "#ff9300" }}
+                    >
+                        #
+                    </a>{" "}
+                    {post.data.title}
+                </h1>
+                <FormattedDate date={post.data.pubDate} />
+            </div>
+            <div class={markdownStyles["markdown"]}>
+                <slot />
+            </div>
+        </article>
+    </div>
 </Layout>
