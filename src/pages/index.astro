@@ -2,11 +2,11 @@
 import { getCollection } from "astro:content";
 import HomePostCard from "../components/HomePostCard.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
-import { socials } from "./api/socials";
 import Layout from "../layouts/Layout.astro";
+import { socials } from "./api/socials";
 
 const posts = (await getCollection("blog")).sort(
-    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 ---
 
@@ -15,7 +15,7 @@ const posts = (await getCollection("blog")).sort(
         <div class="flex flex-col items-center mb-4">
             <img
                 class="rounded-full"
-                src="/images/JoeDuncko2019Square.jpg"
+                src="/images/JoeDuncko2025SquareSmall.png"
                 height={144}
                 width={144}
                 alt={"Joe Duncko"}
