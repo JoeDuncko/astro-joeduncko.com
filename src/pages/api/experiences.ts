@@ -15,6 +15,17 @@ export type Experience = {
 
 export const experiences: Experience[] = [
     {
+        title: "Director of Platform Engineering",
+        company: {
+            name: "BlastPoint",
+            location: "Pittsburgh, PA",
+            link: "https://blastpoint.com/",
+        },
+        startDate: parse("2025-01-27", "y-M-d", new Date()),
+        description:
+            "Responsible for coordinating BlastPoint's Platform Team's process and workload, as well as growth and retention.",
+    },
+    {
         title: "Engineering Manager",
         company: {
             name: "BlastPoint",
@@ -22,6 +33,7 @@ export const experiences: Experience[] = [
             link: "https://blastpoint.com/",
         },
         startDate: parse("2023-08-07", "y-M-d", new Date()),
+        endDate: parse("2025-01-27", "y-M-d", new Date()),
         description:
             "Responsible for coordinating BlastPoint's Platform Team's process and workload, as well as growth and retention.",
     },
@@ -45,6 +57,7 @@ export const experiences: Experience[] = [
             link: "https://blastpoint.com/",
         },
         startDate: parse("2021-10-06", "y-M-d", new Date()),
+        endDate: parse("2025-01-27", "y-M-d", new Date()),
         description:
             "Helping Blastpoint adopt the latest frontend technologies and best practices for its customer intelligence platform.",
     },

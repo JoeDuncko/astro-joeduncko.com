@@ -4,8 +4,6 @@
 export const MY_NAME = "Joe Duncko";
 
 export const SITE_DESCRIPTION =
-    "Frontend engineer and community organizer based in Youngstown, Ohio";
+    "Frontend engineer and community organizer based in Pittsburgh";
 
-export const CATCH_PHASE = "Content Catalyst";
-
-export const SITE_TITLE = `${MY_NAME} | ${CATCH_PHASE}`;
+export const SITE_TITLE = `${MY_NAME}`;
