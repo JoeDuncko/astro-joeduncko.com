@@ -4,6 +4,6 @@
 export const MY_NAME = "Joe Duncko";
 
 export const SITE_DESCRIPTION =
-    "Frontend engineer and community organizer based in Pittsburgh";
+    "Pittsburgh-based engineering leader passionate about frontend development, product impact, and community building.";
 
 export const SITE_TITLE = `${MY_NAME}`;
