@@ -23,7 +23,7 @@ export const extracurriculars: Extracurricular[] = [
         },
         startDate: parse("2023-02-17", "y-M-d", new Date()),
         description:
-            "Guiding YBI portfolio companies through software development challenges and leading the YBI's MVP Development Program - which funds an MVP for a Northeast Ohio-based startup each semester.",
+            "Advising YBI portfolio companies on software development strategy and leading the YBI's MVP Development Program — which funds and delivers an MVP for a Northeast Ohio-based startup each semester.",
     },
     {
         hideWhenPrinting: true,
@@ -58,7 +58,7 @@ export const extracurriculars: Extracurricular[] = [
         },
         startDate: parse("2017-05-01", "y-M-d", new Date()),
         description:
-            "Connecting software engineers and developers in the Youngstown, OH area through events and community initiatives.",
+            "Organizing events and resources to connect software developers and engineers in the Youngstown, OH area.",
     },
     {
         hideWhenPrinting: true,
@@ -71,7 +71,7 @@ export const extracurriculars: Extracurricular[] = [
         startDate: parse("2014-08-01", "y-M-d", new Date()),
         endDate: parse("2017-05-01", "y-M-d", new Date()),
         description:
-            "Lead the founding team of HackYSU organizers. Organized the first three HackYSU hackathons, which brought together hundreds of students to build software projects over a weekend.",
+            "Led the first three HackYSU hackathons, bringing together hundreds of students to build software projects over a weekend.",
     },
 ];
 
