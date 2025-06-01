@@ -23,7 +23,7 @@ export const extracurriculars: Extracurricular[] = [
         },
         startDate: parse("2023-02-17", "y-M-d", new Date()),
         description:
-            "Advising YBI portfolio companies on software development strategy and leading the YBI's MVP Development Program — which funds and delivers an MVP for a Northeast Ohio-based startup each semester.",
+            "Advising YBI portfolio companies on software development strategy and leading the YBI's MVP Development Program - which funds and delivers an MVP for a Northeast Ohio-based startup each semester.",
     },
     {
         hideWhenPrinting: true,
