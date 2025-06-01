@@ -14,7 +14,7 @@ export type Position = {
     title: string;
     startDate: Date;
     endDate?: Date;
-    description: string;
+    description?: string;
     hideWhenPrinting?: boolean;
 };
 
@@ -30,28 +30,22 @@ export const experiences: Experience[] = [
                 title: "Director of Platform Engineering",
                 startDate: parse("2025-01-27", "y-M-d", new Date()),
                 description:
-                    "Responsible for coordinating BlastPoint's Platform Team's process and workload, as well as growth and retention.",
+                    "Grew from Senior Frontend Engineer to Director of Platform Engineering, leading the Platform Team's technical direction, product alignment, and process strategy. Re-architected a React codebase with modern tooling (TypeScript, Vite, react-query), enabling a two-person frontend team to consistently outpace larger backend and design teams. Introduced two-week cycles and a design-first planning process, doubling team throughput in a year and improving stakeholder trust and cross-functional clarity.",
             },
             {
                 title: "Engineering Manager",
                 startDate: parse("2023-08-07", "y-M-d", new Date()),
                 endDate: parse("2025-01-27", "y-M-d", new Date()),
-                description:
-                    "Responsible for coordinating BlastPoint's Platform Team's process and workload, as well as growth and retention.",
             },
             {
                 title: "Team Lead",
                 startDate: parse("2023-01-01", "y-M-d", new Date()),
                 endDate: parse("2023-08-07", "y-M-d", new Date()),
-                description:
-                    "Responsible for coordinating BlastPoint's Platform Team's process and workload. Successfully iteratively transitioned the team to industry-standard two week cycles, significantly increasing team momentum, morale, and predictability.",
             },
             {
                 title: "Senior Frontend Engineer",
                 startDate: parse("2021-10-06", "y-M-d", new Date()),
                 endDate: parse("2025-01-27", "y-M-d", new Date()),
-                description:
-                    "Helping BlastPoint adopt the latest frontend technologies and best practices for its customer intelligence platform.",
             },
         ],
     },
