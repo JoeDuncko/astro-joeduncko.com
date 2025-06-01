@@ -17,11 +17,12 @@ export type Position = {
     description: string;
     hideWhenPrinting?: boolean;
 };
+
 export const experiences: Experience[] = [
     {
         company: {
             name: "BlastPoint",
-            location: "Pittsburgh, PA",
+            location: "Pittsburgh, PA (remote)",
             link: "https://blastpoint.com/",
         },
         positions: [
@@ -57,7 +58,7 @@ export const experiences: Experience[] = [
     {
         company: {
             name: "BrdgAI",
-            location: "Pittsburgh, PA",
+            location: "Pittsburgh, PA (remote)",
             link: "https://brdg.ai/",
         },
         positions: [
@@ -66,14 +67,14 @@ export const experiences: Experience[] = [
                 startDate: parse("2020-01-02", "y-M-d", new Date()),
                 endDate: parse("2021-10-06", "y-M-d", new Date()),
                 description:
-                    "Created UIs and designed developer-friendly APIs for machine learning pipeline. Projects included custom web-based image and video labeling software (React, canvas/Konva), a cross-platform data collection mobile app (React Native, Expo), and several dashboards. Helped manage a remote team of contractors located outside of the US. Heavily contributed to iterating devops workflow by spearheading implementing analytics, error reporting, and CI.",
+                    "Built custom UIs and internal tools for machine learning workflows, including a web-based image/video labeling platform (React, Konva), a cross-platform data collection app (React Native, Expo), and supporting dashboards. Helped manage a team of international contractors. Contributed to DevOps workflows by implementing CI, analytics, and error reporting.",
             },
         ],
     },
     {
         company: {
             name: "The Event Discovery Company",
-            location: "Youngstown, OH",
+            location: "Youngstown, OH (remote)",
         },
         positions: [
             {
@@ -81,7 +82,7 @@ export const experiences: Experience[] = [
                 startDate: parse("2017-10", "y-M", new Date()),
                 endDate: parse("2020-03-01", "y-M-d", new Date()),
                 description:
-                    "Led communication with customers and stakeholders to make product and business decisions. Spearheaded frontend development, creating interactive wireframes in Adobe XD and implementing them in React via Material UI. Worked remote with a team through an always-improving agile development workflow.",
+                    "Led communication with customers and stakeholders to make product and business decisions. Spearheaded frontend development, creating interactive wireframes in Adobe XD and implementing them in React (MUI). Worked remote with a team through an always-improving agile development workflow.",
             },
         ],
     },
@@ -121,7 +122,7 @@ export const experiences: Experience[] = [
                 startDate: parse("2015-05-19", "y-M-d", new Date()),
                 endDate: parse("2015-08-19", "y-M-d", new Date()),
                 description:
-                    "Spent three months helping ten-odd startups get their MVPs ready in time for Demo Day in Flashstarts' intensive program. Learned a ton about sales and entrepreneurship along the way. Worked simultaneously on multiple projects with multiple teams. Utilized the MEAN stack on one project, and Phaser.js using Typescript on another. Discovered the wonderful thing that is UX testing.",
+                    "Spent a fast-paced summer helping multiple startups prep MVPs for Demo Day as part of Flashstarts' accelerator. Bounced between teams and projects - building with the MEAN stack on one, Phaser.js and TypeScript on another. Got my first real taste of startup chaos and collaboration.",
             },
         ],
     },
