@@ -15,13 +15,14 @@ interface Project {
         {
             projects.map((project: Project) => (
                 <li class="mb-2">
-                    <ExternalLink
-                        href={project.link}
-                        title={`To ${project.name}`}
-                    >
-                        <h3 class="inline">{project.name}</h3>
-                    </ExternalLink>
-                    , {project.description}
+                    {/* Ignored because the comma moves a space over otherwise */}
+                    {/* prettier-ignore */}
+                    <div>
+                        <ExternalLink href={project.link} title={`To ${project.name}`}>
+                            <h3 class="inline">{project.name}</h3>
+                        </ExternalLink>, {project.description}
+                    </div>
+
                     <div class="hidden print:block">
                         <i>{project.link}</i>
                     </div>
