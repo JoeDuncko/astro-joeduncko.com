@@ -62,29 +62,6 @@ export const experiences: Experience[] = [
             "Helping Blastpoint adopt the latest frontend technologies and best practices for its customer intelligence platform.",
     },
     {
-        title: "EIR - Software Development",
-        company: {
-            name: "Youngstown Business Incubator",
-            location: "Youngstown, OH",
-            link: "https://ybi.org/",
-        },
-        startDate: parse("2023-2-17", "y-M-d", new Date()),
-        description:
-            "Aiding YBI portfolio companies in navigating building out their MVPs as an Entrepreneur in Residence.",
-    },
-    {
-        title: "Adjunct Professor",
-        company: {
-            name: "Youngstown State University",
-            location: "Youngstown, OH",
-            link: "https://ysu.edu/",
-        },
-        startDate: parse("2022-08-29", "y-M-d", new Date()),
-        endDate: parse("2023-05-8", "y-M-d", new Date()),
-        description:
-            "Bringing my industry experience to the classroom to teach web development related courses at YSU.",
-    },
-    {
         title: "Software Engineer",
         company: {
             name: "BrdgAI",

@@ -1,0 +1,15 @@
+---
+import { extracurriculars } from "../pages/api/extracurriculars";
+import DataCard from "./DataCard.astro";
+import Extracurricular from "./Extracurricular.astro";
+---
+
+<DataCard title="Extracurriculars">
+    <ol>
+        {
+            extracurriculars.map((extracurricular) => (
+                <Extracurricular extracurricular={extracurricular} />
+            ))
+        }
+    </ol>
+</DataCard>

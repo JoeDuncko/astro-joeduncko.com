@@ -1,0 +1,73 @@
+---
+import classNames from "classnames";
+import { format } from "date-fns";
+import { type Extracurricular } from "../pages/api/extracurriculars";
+import ExternalLink from "./ExternalLink.astro";
+
+interface Props {
+    extracurricular: Extracurricular;
+}
+
+const { extracurricular } = Astro.props;
+
+const {
+    title,
+    description,
+    organization,
+    startDate,
+    endDate,
+    hideWhenPrinting,
+} = extracurricular;
+---
+
+<li class={classNames("mb-2", hideWhenPrinting && "print:hidden")}>
+    <div class="flex mb-1 gap-4">
+        <div class="flex-grow">
+            <h3>
+                <!-- Preserves the line breaks in the title using `white-space: pre-line` CSS property -->
+                <b style="white-space: pre-line;">{title}</b> @<br />
+                {
+                    organization.link ? (
+                        <ExternalLink
+                            href={organization.link}
+                            title={`To ${organization.name}`}
+                        >
+                            {organization.name}
+                        </ExternalLink>
+                    ) : (
+                        organization.name
+                    )
+                }
+            </h3>
+        </div>
+
+        <div class="text-right text-sm text-gray-500">
+            <span class="block">{organization.location}</span>
+
+            <span class="block">
+                {
+                    /* Inline-block helps not break between years and months on mobile, see
+                    https://stackoverflow.com/questions/18222409/specifying-a-preferred-line-break-point-in-html-text-in-a-responsive-design */
+                }
+                <time datetime={startDate.toISOString()} class="inline-block">
+                    {format(startDate, "MMM y")}
+                </time>{" "}
+                -{" "}
+                {
+                    endDate ? (
+                        <time
+                            datetime={endDate.toISOString()}
+                            class="inline-block"
+                        >
+                            {format(endDate, "MMM y")}
+                        </time>
+                    ) : (
+                        "Present"
+                    )
+                }
+            </span>
+        </div>
+    </div>
+
+    <p>{description}</p>
+</li>
