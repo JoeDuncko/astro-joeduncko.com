@@ -1,8 +1,8 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import FormattedDate from "../components/FormattedDate.astro";
-import markdownStyles from "./markdown-styles.module.css";
 import Layout from "./Layout.astro";
+import markdownStyles from "./markdown-styles.module.css";
 
 type Props = CollectionEntry<"blog">;
 
@@ -22,7 +22,7 @@ const post = Astro.props;
                     <a
                         href={`/blog/${post.slug}/`}
                         class="hover:underline"
-                        style={{ color: "#ff9300" }}
+                        style={{ color: "#3668c7" }}
                     >
                         #
                     </a>{" "}

@@ -1,6 +1,6 @@
 .markdown {
-  @apply leading-relaxed;
-  @apply mb-5;
+    @apply leading-relaxed;
+    @apply mb-5;
 }
 
 .markdown p,
@@ -8,102 +8,102 @@
 .markdown ol,
 .markdown blockquote,
 .markdown details {
-  @apply mb-2;
+    @apply mb-2;
 }
 
 .markdown summary:hover {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .markdown details {
-  border: 1px solid #aaa;
-  border-radius: 4px;
-  padding: 0.5em 0.5em 0;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    padding: 0.5em 0.5em 0;
 }
 
 .markdown summary {
-  border-radius: 4px;
-  padding: 0.5em 0.5em 0;
+    border-radius: 4px;
+    padding: 0.5em 0.5em 0;
 }
 
 .markdown summary {
-  margin: -0.5em -0.5em 0;
-  padding: 0.5em;
+    margin: -0.5em -0.5em 0;
+    padding: 0.5em;
 }
 
 .markdown details[open] {
-  padding: 0.5em;
+    padding: 0.5em;
 }
 
 .markdown details[open] summary {
-  border-bottom: 1px solid #aaa;
-  margin-bottom: 0.5em;
+    border-bottom: 1px solid #aaa;
+    margin-bottom: 0.5em;
 }
 
 .markdown h2 {
-  @apply text-4xl mt-4 mb-2 leading-snug;
+    @apply text-4xl mt-4 mb-2 leading-snug;
 }
 
 .markdown h3 {
-  @apply text-3xl mt-4 mb-2 leading-snug;
+    @apply text-3xl mt-4 mb-2 leading-snug;
 }
 
 .markdown h3 {
-  @apply text-2xl mt-4 mb-2 leading-snug;
+    @apply text-2xl mt-4 mb-2 leading-snug;
 }
 
 .markdown h4 {
-  @apply text-xl mt-4 mb-2 leading-snug;
+    @apply text-xl mt-4 mb-2 leading-snug;
 }
 
 .markdown h5 {
-  @apply text-lg mt-4 mb-2 leading-snug;
+    @apply text-lg mt-4 mb-2 leading-snug;
 }
 
 .markdown a {
-  @apply text-[#ff9300];
-  @apply font-medium;
+    @apply text-[#3668c7];
+    @apply font-medium;
 }
 
 .markdown a:hover {
-  @apply underline;
+    @apply underline;
 }
 
 .markdown ul {
-  @apply list-disc;
-  @apply pl-8;
+    @apply list-disc;
+    @apply pl-8;
 }
 
 .markdown ol {
-  @apply list-decimal;
-  @apply pl-8;
+    @apply list-decimal;
+    @apply pl-8;
 }
 
 .markdown :is(h2, h3, h4, h5, h6) a {
-  @apply mr-2;
+    @apply mr-2;
 }
 
 .markdown hr {
-  margin: 1em 0;
+    margin: 1em 0;
 }
 
 .markdown pre {
-  overflow: scroll;
-  margin-bottom: 0.5rem;
+    overflow: scroll;
+    margin-bottom: 0.5rem;
 }
 
 .markdown img {
-  margin-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 
 .markdown code {
-  background-color: #f9f9f9;
-  border: 1px solid #e1e4e8;
-  font-family: "Courier New", Courier, monospace;
-  color: #333333;
-  padding: 0.2em 0.4em;
-  border-radius: 3px;
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+    border: 1px solid #e1e4e8;
+    font-family: "Courier New", Courier, monospace;
+    color: #333333;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 /* For nested lists */
@@ -111,14 +111,14 @@
 .markdown ul ol,
 .markdown ol ul,
 .markdown ol ol {
-  margin-bottom: 0;
+    margin-bottom: 0;
 }
 
 .markdown figure img {
-  margin: 0;
+    margin: 0;
 }
 
 .markdown figure figcaption {
-  font-size: small;
-  font-style: italic;
+    font-size: small;
+    font-style: italic;
 }
