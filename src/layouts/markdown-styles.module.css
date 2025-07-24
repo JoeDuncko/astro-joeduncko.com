@@ -122,3 +122,8 @@
     font-size: small;
     font-style: italic;
 }
+
+.markdown blockquote {
+    @apply border-l-2 border-gray-300 pl-4 italic;
+    @apply text-gray-700;
+}
