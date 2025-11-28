@@ -49,8 +49,8 @@ jobs:
 
       - name: Build production site
         env:
-          SITE_URL: "https://${{ env.OWNER }}.github.io/${{ env.REPO }}"
-          BASE_PATH: "/${{ env.REPO }}/"
+          SITE_URL: "https://joeduncko.com"
+          BASE_PATH: "/"
         run: |
           echo "Building production site..."
           npm run build
@@ -71,8 +71,10 @@ jobs:
             git fetch origin pull/$pr/head:pr-$pr
             git checkout pr-$pr
 
-            export SITE_URL="https://${OWNER}.github.io/${REPO}/preview/pr-$pr"
-            export BASE_PATH="/${REPO}/preview/pr-$pr/"
+            npm ci
+
+            export SITE_URL="https://joeduncko.com/preview/pr-$pr"
+            export BASE_PATH="/preview/pr-$pr"
 
             npm run build
 
@@ -110,7 +112,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           pr=${{ github.event.pull_request.number }}
-          url="https://${OWNER}.github.io/${REPO}/preview/pr-$pr/"
+          url="https://joeduncko.com/preview/pr-$pr/"
 
           body=$'🚀 **Preview Ready**\n\nYour branch has been deployed to GitHub Pages.\n\n👉 '"$url"
 
