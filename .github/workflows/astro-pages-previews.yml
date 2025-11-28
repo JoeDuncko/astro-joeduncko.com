@@ -36,8 +36,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
       - name: Install GitHub CLI
-        uses: cli/gh-actions@v2
+        uses: cli/cli@v2
 
       - name: Get open PR numbers
         id: prs
@@ -106,7 +109,7 @@ jobs:
 
     steps:
       - name: Install GitHub CLI
-        uses: cli/gh-actions@v2
+        uses: cli/cli@v2
 
       - name: Comment with preview link
         env:
@@ -115,14 +118,7 @@ jobs:
           pr=${{ github.event.pull_request.number }}
           url="https://${OWNER}.github.io/${REPO}/preview/pr-$pr/"
 
-          body=$(cat <<EOF
-          🚀 **Preview Ready**
-
-          Your branch has been deployed to GitHub Pages.
-
-          👉 $url
-          EOF
-          )
+          body=$'🚀 **Preview Ready**\n\nYour branch has been deployed to GitHub Pages.\n\n👉 '"$url"
 
           gh api --method POST \
             repos/${{ github.repository }}/issues/$pr/comments \
