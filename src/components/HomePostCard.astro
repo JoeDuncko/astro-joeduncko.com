@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import { getUrl } from "../utils/url";
 import FormattedDate from "./FormattedDate.astro";
 
 type Props = CollectionEntry<"blog">;
@@ -22,7 +23,7 @@ const post = Astro.props;
     <div class="text-right">
         <small>
             <a
-                href={`/blog/${post.slug}/`}
+                href={getUrl(`/blog/${post.slug}/`)}
                 class="after:absolute after:inset-0 hover:underline flex gap-2 items-center justify-end"
             >
                 Read More <svg

@@ -1,13 +1,14 @@
 ---
+import { getUrl } from "../utils/url";
 import HeaderLink from "./HeaderLink.astro";
 ---
 
 <header class="flex flex-col items-center mb-4 print:hidden">
     <nav class="mb-8">
         <ul class="flex flex-row items-end text-center gap-8">
-            <HeaderLink href="/">Home</HeaderLink>
-            <HeaderLink href="/resume">Resume</HeaderLink>
-            <HeaderLink href="/blog">Blog</HeaderLink>
+            <HeaderLink href={getUrl("/")}>Home</HeaderLink>
+            <HeaderLink href={getUrl("/resume")}>Resume</HeaderLink>
+            <HeaderLink href={getUrl("/blog")}>Blog</HeaderLink>
         </ul>
     </nav>
 </header>

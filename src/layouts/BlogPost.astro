@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import { getUrl } from "../utils/url";
 import FormattedDate from "../components/FormattedDate.astro";
 import Layout from "./Layout.astro";
 import markdownStyles from "./markdown-styles.module.css";
@@ -20,7 +21,7 @@ const post = Astro.props;
             <div class="mb-2">
                 <h1 class="text-5xl">
                     <a
-                        href={`/blog/${post.slug}/`}
+                        href={getUrl(`/blog/${post.slug}/`)}
                         class="hover:underline"
                         style={{ color: "#3668c7" }}
                     >
