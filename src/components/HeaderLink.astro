@@ -1,5 +1,6 @@
 ---
 import type { HTMLAttributes } from "astro/types";
+import classnames from "classnames";
 import { getUrl } from "../utils/url";
 
 type Props = HTMLAttributes<"a">;
@@ -18,11 +19,10 @@ const pathWithoutBase = pathname.startsWith(base) && base !== '/'
 const subpath = pathWithoutBase.match(/[^\/]+/g);
 
 // Check if current link is active
+const firstSegment = subpath?.[0];
 const isActive = href === pathname ||
                  (href === getUrl('/') && pathWithoutBase === '/') ||
-                 (href === getUrl('/' + subpath?.[0]));
-
-import classnames from "classnames";
+                 (firstSegment && href === getUrl('/' + firstSegment));
 ---
 
 <li class={classnames("hover:underline", isActive ? "font-semibold" : "")}>
