@@ -1,0 +1,68 @@
+---
+title: "Testing PR Previews with GitHub Pages"
+description: "A test post to verify that PR preview functionality works correctly with base paths and navigation."
+pubDate: November 28 2024
+heroImage: "/blog-placeholder-1.jpg"
+---
+
+This is a test blog post created to verify that PR preview functionality is working correctly! 🎉
+
+## What We're Testing
+
+This post helps verify that:
+
+- Navigation links work correctly in PR previews
+- Blog post links stay within the preview environment
+- Images load from the correct base path
+- The active link highlighting works with dynamic base paths
+
+## How It Works
+
+When you're viewing this in a PR preview, the site is served from a path like `/preview/pr-123/`. All the links on this page should include that prefix, keeping you inside the preview environment.
+
+### Navigation Test
+
+Try clicking on the navigation links in the header:
+- **Home** - Should take you to `/preview/pr-123/`
+- **Resume** - Should take you to `/preview/pr-123/resume`
+- **Blog** - Should take you to `/preview/pr-123/blog`
+
+None of these should redirect you to the production site!
+
+### Blog Links Test
+
+Go back to the blog listing page and click on different blog posts. Each should stay within the preview environment.
+
+### Image Test
+
+If you can see the hero image and the profile picture on the home page, then image paths are working correctly with the base path.
+
+## The Solution
+
+We created a `getUrl()` helper function that automatically prepends the configured `BASE_URL` to all internal links. This means:
+
+```typescript
+// Production (BASE_URL = "/")
+getUrl("/blog") // Returns: "/blog"
+
+// PR Preview (BASE_URL = "/preview/pr-123")
+getUrl("/blog") // Returns: "/preview/pr-123/blog"
+```
+
+Pretty neat! ✨
+
+## Updated Files
+
+The fix required updating:
+- URL helper utility (`src/utils/url.ts`)
+- Navigation components
+- Blog post card components
+- Footer links
+- Asset paths (images, favicon)
+- RSS feed generation
+
+## Conclusion
+
+If you can read this post in a PR preview and all the links work correctly, then our implementation is successful! Time to merge this to production.
+
+Happy testing! 🚀
