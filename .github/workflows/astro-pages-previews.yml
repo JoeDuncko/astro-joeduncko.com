@@ -116,13 +116,13 @@ jobs:
           url="https://${OWNER}.github.io/${REPO}/preview/pr-$pr/"
 
           body=$(cat <<EOF
-🚀 **Preview Ready**
+          🚀 **Preview Ready**
 
-Your branch has been deployed to GitHub Pages.
+          Your branch has been deployed to GitHub Pages.
 
-👉 $url
-EOF
-)
+          👉 $url
+          EOF
+          )
 
           gh api --method POST \
             repos/${{ github.repository }}/issues/$pr/comments \
