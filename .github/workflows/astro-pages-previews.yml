@@ -1,0 +1,129 @@
+name: Astro GitHub Pages with PR previews
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+  pull-requests: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    env:
+      OWNER: ${{ github.repository_owner }}
+      REPO: ${{ github.event.repository.name }}
+
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install GitHub CLI
+        uses: cli/gh-actions@v2
+
+      - name: Get open PR numbers
+        id: prs
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          prs=$(gh api repos/${{ github.repository }}/pulls --jq '.[].number' | tr '\n' ' ')
+          echo "numbers=$prs" >> "$GITHUB_OUTPUT"
+
+      - name: Build production site
+        env:
+          SITE_URL: "https://${{ env.OWNER }}.github.io/${{ env.REPO }}"
+          BASE_PATH: "/${{ env.REPO }}"
+        run: |
+          echo "Building production site..."
+          npm run build
+          mkdir -p site
+          cp -r dist/* site/
+
+      - name: Build PR previews
+        if: steps.prs.outputs.numbers != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          OWNER: ${{ env.OWNER }}
+          REPO: ${{ env.REPO }}
+        run: |
+          mkdir -p site/preview
+          for pr in ${{ steps.prs.outputs.numbers }}; do
+            echo "=== Building preview for PR #$pr ==="
+
+            git fetch origin pull/$pr/head:pr-$pr
+            git checkout pr-$pr
+
+            export SITE_URL="https://${OWNER}.github.io/${REPO}/preview/pr-$pr"
+            export BASE_PATH="/${REPO}/preview/pr-$pr"
+
+            npm run build
+
+            mkdir -p "site/preview/pr-$pr"
+            cp -r dist/* "site/preview/pr-$pr/"
+          done
+
+          git checkout main
+
+      - name: Upload artifact to GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  comment-preview-url:
+    needs: build-and-deploy
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+
+    permissions:
+      pull-requests: write
+      contents: read
+
+    env:
+      OWNER: ${{ github.repository_owner }}
+      REPO: ${{ github.event.repository.name }}
+
+    steps:
+      - name: Install GitHub CLI
+        uses: cli/gh-actions@v2
+
+      - name: Comment with preview link
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          pr=${{ github.event.pull_request.number }}
+          url="https://${OWNER}.github.io/${REPO}/preview/pr-$pr/"
+
+          body=$(cat <<EOF
+🚀 **Preview Ready**
+
+Your branch has been deployed to GitHub Pages.
+
+👉 $url
+EOF
+)
+
+          gh api --method POST \
+            repos/${{ github.repository }}/issues/$pr/comments \
+            -f body="$body"

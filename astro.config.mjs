@@ -14,7 +14,8 @@ function customHeadingContent(node) {
 
 // https://astro.build/config
 export default defineConfig({
-    site: "https://joeduncko.com",
+    site: process.env.SITE_URL || "http://localhost:4321",
+    base: process.env.BASE_PATH || "/",
     integrations: [mdx(), sitemap(), tailwind()],
     markdown: {
         rehypePlugins: [
