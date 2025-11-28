@@ -39,9 +39,6 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      - name: Install GitHub CLI
-        uses: cli/cli@v2
-
       - name: Get open PR numbers
         id: prs
         env:
@@ -108,9 +105,6 @@ jobs:
       REPO: ${{ github.event.repository.name }}
 
     steps:
-      - name: Install GitHub CLI
-        uses: cli/cli@v2
-
       - name: Comment with preview link
         env:
           GH_TOKEN: ${{ github.token }}
