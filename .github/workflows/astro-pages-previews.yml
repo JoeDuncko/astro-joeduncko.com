@@ -50,7 +50,7 @@ jobs:
       - name: Build production site
         env:
           SITE_URL: "https://${{ env.OWNER }}.github.io/${{ env.REPO }}"
-          BASE_PATH: "/${{ env.REPO }}"
+          BASE_PATH: "/${{ env.REPO }}/"
         run: |
           echo "Building production site..."
           npm run build
@@ -72,7 +72,7 @@ jobs:
             git checkout pr-$pr
 
             export SITE_URL="https://${OWNER}.github.io/${REPO}/preview/pr-$pr"
-            export BASE_PATH="/${REPO}/preview/pr-$pr"
+            export BASE_PATH="/${REPO}/preview/pr-$pr/"
 
             npm run build
 
