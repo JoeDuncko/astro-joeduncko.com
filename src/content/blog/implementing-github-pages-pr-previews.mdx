@@ -1,0 +1,343 @@
+---
+title: "Implementing PR Previews for Astro with GitHub Pages"
+description: "Setting up PR preview deployments for Astro sites using GitHub Pages."
+pubDate: November 28 2025
+---
+
+I've been experimenting with using Agents to make small, autonomous updates to my projects. In a perfect world, I could shoot off a message from my phone — the same way I'd ping one of my students — and an agent would make the change, open a PR, and hand me a link I can test immediately.
+
+Since I'm trying this out on my own site, PR previews quickly became a must-have. I wanted a way to see the changes live on my phone, approve them, and merge right from there.
+
+This site uses Astro for static generation and GitHub Pages for hosting. GitHub Pages doesn't support branch previews out of the box. The common workaround is a gh-pages branch full of accumulated build artifacts, but I've always found that setup clunky. GitHub's native Pages artifacts make that workflow feel like legacy plumbing.
+
+So I gave the problem to an agent — first Codex, then Claude Code when Codex fumbled — and the end result turned out surprisingly elegant.
+
+Everything below this point was written by Claude Code.
+
+## The Goal
+
+When someone opens a pull request, we want:
+
+1. The site built with that PR's changes
+2. The built site deployed to a unique URL like `https://yourdomain.com/preview/pr-123/`
+3. A comment on the PR with the preview URL
+4. Old previews automatically cleaned up when PRs close
+
+Unlike traditional approaches that accumulate previews in a `gh-pages` branch, we rebuild everything on each deployment - production plus all open PR previews - and deploy them as a single artifact.
+
+## Prerequisites
+
+This guide assumes you have:
+
+-   An Astro site configured for static output
+-   The site already deploying to GitHub Pages (or ready to)
+-   Familiarity with GitHub Actions
+-   Node.js and npm for building
+
+## Part 1: Configure Astro for Dynamic Base Paths
+
+The first challenge is that Astro needs to know where it's being served from. Production lives at the root path (`/`), but previews live at `/preview/pr-123/`.
+
+### Update astro.config.mjs
+
+Modify your Astro config to read the base path from environment variables:
+
+```javascript
+import { defineConfig } from "astro/config";
+
+export default defineConfig({
+    site: process.env.SITE_URL || "http://localhost:4321",
+    base: process.env.BASE_PATH || "/",
+    // ... rest of your config
+});
+```
+
+This allows the workflow to control where Astro thinks it's being deployed:
+
+-   Production: `SITE_URL="https://yourdomain.com"`, `BASE_PATH="/"`
+-   Preview: `SITE_URL="https://yourdomain.com/preview/pr-123"`, `BASE_PATH="/preview/pr-123"`
+
+### Create a URL Helper Utility
+
+Even with `base` configured, you need to update all hardcoded links in your components. Create `src/utils/url.ts`:
+
+```typescript
+/**
+ * Generates a URL with the correct base path for the current environment.
+ */
+export function getUrl(path: string): string {
+    const base = import.meta.env.BASE_URL || "/";
+
+    // Remove leading slash from path to avoid double slashes
+    const cleanPath = path.startsWith("/") ? path.slice(1) : path;
+
+    // Combine base and path
+    const combined = base.endsWith("/")
+        ? `${base}${cleanPath}`
+        : `${base}/${cleanPath}`;
+
+    // Clean up any double slashes
+    return combined.replace(/\/+/g, "/");
+}
+```
+
+### Update All Internal Links
+
+Replace hardcoded paths throughout your components:
+
+```astro
+---
+import { getUrl } from "../utils/url";
+---
+
+<!-- Before -->
+<a href="/blog">Blog</a>
+<img src="/images/logo.png" />
+
+<!-- After -->
+<a href={getUrl("/blog")}>Blog</a>
+<img src={getUrl("/images/logo.png")} />
+```
+
+You'll need to update:
+
+-   Navigation links
+-   Blog post links
+-   Image src attributes
+-   Favicon links
+-   Any other internal URLs
+
+**Important for active link detection:** If you have logic to highlight the current page in navigation, you'll need to account for the base path:
+
+```astro
+---
+import { getUrl } from "../utils/url";
+
+const { pathname } = Astro.url;
+const base = import.meta.env.BASE_URL || "/";
+
+// Remove base from pathname for comparison
+let pathWithoutBase = pathname;
+if (pathname.startsWith(base) && base !== "/") {
+    pathWithoutBase = pathname.slice(base.length);
+}
+
+const firstSegment = pathWithoutBase.match(/[^\/]+/g)?.[0];
+const isActive =
+    href === pathname ||
+    (href === getUrl("/") && pathWithoutBase === "/") ||
+    (firstSegment && href === getUrl("/" + firstSegment));
+---
+```
+
+## Part 2: Create the GitHub Actions Workflow
+
+Create `.github/workflows/astro-pages-previews.yml`:
+
+```yaml
+name: Astro GitHub Pages with PR previews
+
+on:
+    push:
+        branches: [main]
+    pull_request:
+        types: [opened, synchronize, reopened, closed]
+
+permissions:
+    contents: read
+    pages: write
+    id-token: write
+    pull-requests: write
+
+jobs:
+    build-and-deploy:
+        runs-on: ubuntu-latest
+
+        env:
+            OWNER: ${{ github.repository_owner }}
+            REPO: ${{ github.event.repository.name }}
+
+        steps:
+            - name: Checkout main branch
+              uses: actions/checkout@v4
+              with:
+                  ref: main
+                  fetch-depth: 0
+
+            - name: Setup Node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 20
+                  cache: npm
+
+            - name: Install dependencies
+              run: npm ci
+
+            - name: Setup Pages
+              uses: actions/configure-pages@v5
+
+            - name: Get open PR numbers
+              id: prs
+              env:
+                  GH_TOKEN: ${{ github.token }}
+              run: |
+                  prs=$(gh api repos/${{ github.repository }}/pulls --jq '.[].number' | tr '\n' ' ')
+                  echo "numbers=$prs" >> "$GITHUB_OUTPUT"
+
+            - name: Build production site
+              env:
+                  SITE_URL: "https://yourdomain.com"
+                  BASE_PATH: "/"
+              run: |
+                  echo "Building production site..."
+                  npm run build
+                  mkdir -p site
+                  cp -r dist/* site/
+
+            - name: Build PR previews
+              if: steps.prs.outputs.numbers != ''
+              env:
+                  GH_TOKEN: ${{ github.token }}
+                  OWNER: ${{ env.OWNER }}
+                  REPO: ${{ env.REPO }}
+              run: |
+                  mkdir -p site/preview
+                  for pr in ${{ steps.prs.outputs.numbers }}; do
+                    echo "=== Building preview for PR #$pr ==="
+
+                    git fetch origin pull/$pr/head:pr-$pr
+                    git checkout pr-$pr
+
+                    npm ci
+
+                    export SITE_URL="https://yourdomain.com/preview/pr-$pr"
+                    export BASE_PATH="/preview/pr-$pr"
+
+                    npm run build
+
+                    mkdir -p "site/preview/pr-$pr"
+                    cp -r dist/* "site/preview/pr-$pr/"
+                  done
+
+                  git checkout main
+
+            - name: Upload artifact to GitHub Pages
+              uses: actions/upload-pages-artifact@v3
+              with:
+                  path: ./site
+
+            - name: Deploy to GitHub Pages
+              id: deployment
+              uses: actions/deploy-pages@v4
+
+    comment-preview-url:
+        needs: build-and-deploy
+        if: github.event_name == 'pull_request' && github.event.action != 'closed'
+        runs-on: ubuntu-latest
+
+        permissions:
+            pull-requests: write
+            contents: read
+
+        env:
+            OWNER: ${{ github.repository_owner }}
+            REPO: ${{ github.event.repository.name }}
+
+        steps:
+            - name: Comment with preview link
+              env:
+                  GH_TOKEN: ${{ github.token }}
+              run: |
+                  pr=${{ github.event.pull_request.number }}
+                  url="https://yourdomain.com/preview/pr-$pr/"
+
+                  body=$'🚀 **Preview Ready**\n\nYour branch has been deployed to GitHub Pages.\n\n👉 '"$url"
+
+                  gh api --method POST \
+                    repos/${{ github.repository }}/issues/$pr/comments \
+                    -f body="$body"
+```
+
+### Key Points About This Workflow
+
+**Always builds from main first:** Even when triggered by a PR event, we checkout main and build production. This ensures the production site is always up to date.
+
+**Fetches all open PRs:** We use the GitHub API to get a list of all open PR numbers, then build each one.
+
+**Runs `npm ci` for each PR:** Critical! Each PR might have different dependencies. Running `npm ci` for each ensures we're building with the correct packages.
+
+**Single artifact deployment:** All sites (production + all PR previews) are uploaded as one artifact to GitHub Pages. This means old previews automatically disappear when their PRs close.
+
+**Posts PR comments:** The second job runs only on PR events and posts a comment with the preview URL.
+
+## Part 3: Configure GitHub Pages
+
+In your repository settings:
+
+1. Go to Settings → Pages
+2. Under "Build and deployment", set Source to **GitHub Actions**
+
+That's it! No need to manage a `gh-pages` branch.
+
+## Part 4: Handle Custom Domains
+
+If you're using a custom domain (like I am with `joeduncko.com`), you need to adjust the workflow:
+
+```yaml
+- name: Build production site
+  env:
+      SITE_URL: "https://joeduncko.com" # Your custom domain
+      BASE_PATH: "/" # Root path for custom domain
+
+- name: Build PR previews
+  run: |
+      export SITE_URL="https://joeduncko.com/preview/pr-$pr"
+      export BASE_PATH="/preview/pr-$pr"  # No /repo/ prefix!
+```
+
+Custom domains serve from the root, so there's no repository name in the path.
+
+## How It Works
+
+When you push to main or update a PR:
+
+1. Workflow checks out main and builds production → `site/`
+2. Workflow fetches all open PRs via GitHub API
+3. For each open PR:
+    - Checkout that PR's code
+    - Install its dependencies with `npm ci`
+    - Build with `BASE_PATH="/preview/pr-{number}"`
+    - Copy output to `site/preview/pr-{number}/`
+4. Upload the entire `site/` directory as one GitHub Pages artifact
+5. Deploy to Pages
+6. Post preview URL comment on PR (if triggered by PR event)
+
+When a PR closes, it simply won't be in the "open PRs" list on the next deployment, so its preview disappears automatically.
+
+## Trade-offs
+
+**Pros:**
+
+-   No manual gh-pages branch management
+-   Automatic cleanup of old previews
+-   Each PR gets a stable, predictable URL
+-   Works with custom domains
+-   Preview URLs are visible before merging
+
+**Cons:**
+
+-   Rebuilds everything on each deployment (can be slow with many PRs)
+-   Requires careful base path handling in code
+-   More complex than simple static hosting
+
+## Conclusion
+
+This approach gives you Netlify/Vercel-style PR previews using only GitHub's free features. The initial setup takes some work - updating all your links to use the helper function is tedious - but once it's done, previews "just work."
+
+The key insight is treating each deployment as a full rebuild rather than accumulating artifacts. This keeps things simple and prevents the `gh-pages` branch from growing unbounded.
+
+If you're implementing this for your own site, the trickiest part is usually finding all the hardcoded paths. Use your editor's search function to find things like `href="/"`, `src="/"`, and anywhere you're building URLs manually.
+
+Feel free to reference [This site's implementation](https://github.com/JoeDuncko/astro-joeduncko.com).
+
+Good luck with your PR previews!

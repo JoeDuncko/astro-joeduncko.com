@@ -1,4 +1,5 @@
 ---
+import { getUrl } from "../utils/url";
 import { MY_NAME } from "../consts";
 
 const today = new Date();
@@ -76,7 +77,7 @@ const today = new Date();
             >
         </a>
         <a
-            href="/rss.xml"
+            href={getUrl("/rss.xml")}
             class="m-1 hover:text-[#3668c7]"
             target="_blank"
             rel="noreferrer"

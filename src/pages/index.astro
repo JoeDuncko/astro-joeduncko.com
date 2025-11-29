@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import { getUrl } from "../utils/url";
 import HomePostCard from "../components/HomePostCard.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 import Layout from "../layouts/Layout.astro";
@@ -15,7 +16,7 @@ const posts = (await getCollection("blog")).sort(
         <div class="flex flex-col items-center mb-4">
             <img
                 class="rounded-full"
-                src="/images/JoeDuncko2025SquareSmall.png"
+                src={getUrl("/images/JoeDuncko2025SquareSmall.png")}
                 height={144}
                 width={144}
                 alt={"Joe Duncko"}
