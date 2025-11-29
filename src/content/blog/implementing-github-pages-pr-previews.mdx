@@ -232,7 +232,7 @@ jobs:
 
     comment-preview-url:
         needs: build-and-deploy
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request' && github.event.action != 'closed'
         runs-on: ubuntu-latest
 
         permissions:
