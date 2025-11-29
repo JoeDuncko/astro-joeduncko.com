@@ -1,14 +1,18 @@
 ---
-title: "Implementing PR Previews with GitHub Pages and Astro"
-description: "A complete guide to setting up PR preview deployments for Astro sites using GitHub Pages and Actions, without managing a gh-pages branch."
+title: "Implementing PR Previews for Astro with GitHub Pages"
+description: "Setting up PR preview deployments for Astro sites using GitHub Pages."
 pubDate: November 28 2025
 ---
 
-> Note: This blog post was written by Claude Code, an AI coding assistant. The implementation was completed through a conversation with Joe, where Claude Code both planned and executed the solution.
+I've been experimenting with using Agents to make small, autonomous updates to my projects. In a perfect world, I could shoot off a message from my phone — the same way I'd ping one of my students — and an agent would make the change, open a PR, and hand me a link I can test immediately.
 
-If you've ever worked on a site with multiple contributors, you know how valuable preview deployments are. Being able to see exactly how a change looks before merging to production catches bugs early and makes collaboration much smoother.
+Since I'm trying this out on my own site, PR previews quickly became a must-have. I wanted a way to see the changes live on my phone, approve them, and merge right from there.
 
-This post walks through implementing PR preview deployments for an Astro static site using GitHub Pages and GitHub Actions, without needing to manage a `gh-pages` branch or accumulate artifacts over time.
+This site uses Astro for static generation and GitHub Pages for hosting. GitHub Pages doesn't support branch previews out of the box. The common workaround is a gh-pages branch full of accumulated build artifacts, but I've always found that setup clunky. GitHub's native Pages artifacts make that workflow feel like legacy plumbing.
+
+So I gave the problem to an agent — first Codex, then Claude Code when Codex fumbled — and the end result turned out surprisingly elegant.
+
+Everything below this point was written by Claude Code.
 
 ## The Goal
 
@@ -125,8 +129,6 @@ const isActive =
     (firstSegment && href === getUrl("/" + firstSegment));
 ---
 ```
-
-**Gotcha:** In Astro components, all `import` statements must be at the top of the frontmatter section, before any code execution. Don't put imports after variable declarations.
 
 ## Part 2: Create the GitHub Actions Workflow
 
@@ -312,28 +314,6 @@ When you push to main or update a PR:
 
 When a PR closes, it simply won't be in the "open PRs" list on the next deployment, so its preview disappears automatically.
 
-## Troubleshooting
-
-**Build fails with "Unterminated string literal"**
-
--   Check for syntax errors in template string interpolation
--   Make sure optional chaining (`?.`) isn't used directly in string concatenation - extract to a variable first
-
-**Styles don't load in previews**
-
--   Verify `BASE_PATH` is being set correctly
--   Check that asset URLs use `getUrl()` or Astro's built-in asset handling
--   Look in browser console for 404s on CSS/JS files
-
-**Active link highlighting broken**
-
--   Make sure link detection logic accounts for the base path
--   Strip base path from current pathname before comparing
-
-**Different dependencies between PRs cause issues**
-
--   Ensure `npm ci` runs for each PR in the loop (line 74 in the workflow above)
-
 ## Trade-offs
 
 **Pros:**
@@ -358,11 +338,6 @@ The key insight is treating each deployment as a full rebuild rather than accumu
 
 If you're implementing this for your own site, the trickiest part is usually finding all the hardcoded paths. Use your editor's search function to find things like `href="/"`, `src="/"`, and anywhere you're building URLs manually.
 
-## Resources
-
--   [Astro Documentation](https://docs.astro.build/)
--   [GitHub Pages Documentation](https://docs.github.com/en/pages)
--   [GitHub Actions: Deploy Pages](https://github.com/actions/deploy-pages)
--   [This site's implementation](https://github.com/JoeDuncko/astro-joeduncko.com)
+Feel free to reference [This site's implementation](https://github.com/JoeDuncko/astro-joeduncko.com).
 
 Good luck with your PR previews!

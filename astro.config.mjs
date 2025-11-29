@@ -28,5 +28,8 @@ export default defineConfig({
                 },
             ],
         ],
+        shikiConfig: {
+            theme: "github-light", // ← this is your culprit
+        },
     },
 });
