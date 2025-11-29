@@ -112,9 +112,14 @@ code {
 pre {
     padding: 1.5em;
     border-radius: 8px;
+    overflow-x: auto;
 }
 pre > code {
-    all: unset;
+    background: none;
+    padding: 0;
+    font-size: inherit;
+    color: inherit;
+    border-radius: 0;
 }
 blockquote {
     border-left: 4px solid var(--accent);
