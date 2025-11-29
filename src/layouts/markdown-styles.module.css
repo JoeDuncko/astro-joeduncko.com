@@ -96,7 +96,7 @@
     margin-bottom: 0.5rem;
 }
 
-.markdown code {
+.markdown :not(pre) > code {
     background-color: #f9f9f9;
     border: 1px solid #e1e4e8;
     font-family: "Courier New", Courier, monospace;
@@ -104,6 +104,10 @@
     padding: 0.2em 0.4em;
     border-radius: 3px;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.markdown pre code {
+    font-family: "Courier New", Courier, monospace;
 }
 
 /* For nested lists */
