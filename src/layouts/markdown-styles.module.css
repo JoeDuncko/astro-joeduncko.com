@@ -88,7 +88,7 @@
 }
 
 .markdown pre {
-    overflow: scroll;
+    overflow-x: auto;
     margin-bottom: 0.5rem;
 }
 
@@ -96,7 +96,8 @@
     margin-bottom: 0.5rem;
 }
 
-.markdown code {
+/* Inline code styling only - not for code blocks */
+.markdown :not(pre) > code {
     background-color: #f9f9f9;
     border: 1px solid #e1e4e8;
     font-family: "Courier New", Courier, monospace;
