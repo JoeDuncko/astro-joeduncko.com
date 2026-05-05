@@ -1,6 +1,6 @@
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
-import tailwind from "@astrojs/tailwind";
+import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
 import { h } from "hastscript";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
@@ -16,7 +16,10 @@ function customHeadingContent(node) {
 export default defineConfig({
     site: process.env.SITE_URL || "http://localhost:4321",
     base: process.env.BASE_PATH || "/",
-    integrations: [mdx(), sitemap(), tailwind()],
+    integrations: [mdx(), sitemap()],
+    vite: {
+        plugins: [tailwindcss()],
+    },
     markdown: {
         rehypePlugins: [
             rehypeSlug,

@@ -1,3 +1,5 @@
+@reference "../styles/tailwind.css";
+
 .markdown {
     @apply leading-relaxed;
     @apply mb-5;
