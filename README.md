@@ -1,68 +1,134 @@
-# Astro Starter Kit: Blog
+# JoeDuncko.com
+
+Personal website and blog for Joe Duncko, built with [Astro](https://astro.build/), MDX, and Tailwind CSS.
+
+The site includes:
+
+- A personal homepage at `/`
+- A blog powered by Astro content collections at `/blog`
+- A resume page at `/resume`
+- JSON-style data endpoints under `/api`
+- RSS and sitemap output for production deploys
+- GitHub Pages deployment
+
+## Tech Stack
+
+- Astro 4
+- TypeScript
+- MDX content
+- Tailwind CSS
+- Astro RSS and sitemap integrations
+- Rehype plugins for slugged, auto-linked headings
+
+## Getting Started
+
+Install dependencies:
 
 ```sh
-npm create astro@latest -- --template blog
+npm install
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/blog)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/blog)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/blog/devcontainer.json)
+Start the local development server:
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+```sh
+npm run dev
+```
 
-![blog](https://github.com/withastro/astro/assets/2244813/ff10799f-a816-4703-b967-c78997e8323d)
+Astro serves the site at `http://localhost:4321` by default.
 
-Features:
+## Scripts
 
--   ✅ Minimal styling (make it your own!)
--   ✅ 100/100 Lighthouse performance
--   ✅ SEO-friendly with canonical URLs and OpenGraph data
--   ✅ Sitemap support
--   ✅ RSS Feed support
--   ✅ Markdown & MDX support
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Start the Astro development server |
+| `npm run start` | Alias for `npm run dev` |
+| `npm run build` | Run `astro check`, then build the static site to `dist/` |
+| `npm run astro -- <command>` | Run Astro CLI commands |
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
+## Project Structure
 
 ```text
-├── public/
-├── src/
-│   ├── components/
-│   ├── content/
-│   ├── layouts/
-│   └── pages/
-├── astro.config.mjs
-├── README.md
-├── package.json
-└── tsconfig.json
+src/
+  components/        Reusable Astro components
+  content/blog/      MDX blog posts
+  layouts/           Page and blog post layouts
+  pages/             File-based routes
+  styles/            Global styles
+  utils/             Shared utilities
+public/
+  images/            Static image assets
+  favicon.ico
+.github/workflows/  GitHub Pages deployment
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+Key files:
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+- `src/consts.ts` stores site-wide title and description values.
+- `src/content/config.ts` defines the blog frontmatter schema.
+- `astro.config.mjs` configures Astro, integrations, markdown plugins, and deploy settings.
+- `src/utils/url.ts` helps generate route-aware internal URLs.
 
-The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
+## Writing Blog Posts
 
-Any static assets, like images, can be placed in the `public/` directory.
+Blog posts live in `src/content/blog/` as `.mdx` files. Each post needs frontmatter that matches the content schema:
 
-## 🧞 Commands
+```mdx
+---
+title: "Post Title"
+description: "Short description for cards, SEO, and RSS."
+pubDate: May 5 2026
+updatedDate: May 6 2026
+heroImage: "/images/example.png"
+---
 
-All commands are run from the root of the project, from a terminal:
+Post content goes here.
+```
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+Required fields:
 
-## 👀 Want to learn more?
+- `title`
+- `description`
+- `pubDate`
 
-Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Optional fields:
 
-## Credit
+- `updatedDate`
+- `heroImage`
 
-This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+Posts are sorted newest-first on the homepage, blog index, and RSS feed.
+
+## Resume and Site Data
+
+Resume sections and other structured site data are defined in the modules under `src/pages/api/`:
+
+- `experiences.ts`
+- `extracurriculars.ts`
+- `openSourceContributions.ts`
+- `projects.ts`
+- `socials.ts`
+
+Those modules are imported by the resume and homepage components, and Astro exposes matching endpoints for direct access where applicable.
+
+## URLs and Deployment Settings
+
+Production uses:
+
+```sh
+SITE_URL=https://joeduncko.com
+BASE_PATH=/
+```
+
+Use `getUrl()` from `src/utils/url.ts` when linking to internal pages or assets from Astro components. That keeps internal links consistent with the configured base path.
+
+## Deployment
+
+The GitHub Actions workflow builds and deploys the site to GitHub Pages.
+
+On pushes to `main`, it builds the production site and deploys it to `https://joeduncko.com`.
+
+## Maintenance Notes
+
+- Run `npm run build` before publishing substantial changes.
+- Put browser-accessible static assets in `public/`.
+- Prefer editing shared personal metadata in `src/consts.ts` instead of duplicating copy across pages.
+- Keep route-aware links going through `getUrl()` when they need to respect the configured base path.
